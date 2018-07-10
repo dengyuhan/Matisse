@@ -64,7 +64,7 @@ public final class Matisse {
     /**
      * Start Matisse from a Fragment.
      * <p>
-     * This Fragment's {@link Fragment#onActivityResult(int, int, Intent)} will be called when user
+     * This Fragment's {link Fragment#onActivityResult(int, int, Intent)} will be called when user
      * finishes selecting.
      *
      * @param fragment Fragment instance.
@@ -78,7 +78,7 @@ public final class Matisse {
      * Obtain user selected media' {@link Uri} list in the starting Activity or Fragment.
      *
      * @param data Intent passed by {@link Activity#onActivityResult(int, int, Intent)} or
-     *             {@link Fragment#onActivityResult(int, int, Intent)}.
+     *             {link Fragment#onActivityResult(int, int, Intent)}.
      * @return User selected media' {@link Uri} list.
      */
     public static List<Uri> obtainResult(Intent data) {
@@ -89,7 +89,7 @@ public final class Matisse {
      * Obtain user selected media path list in the starting Activity or Fragment.
      *
      * @param data Intent passed by {@link Activity#onActivityResult(int, int, Intent)} or
-     *             {@link Fragment#onActivityResult(int, int, Intent)}.
+     *             {link Fragment#onActivityResult(int, int, Intent)}.
      * @return User selected media path list.
      */
     public static List<String> obtainPathResult(Intent data) {
@@ -100,7 +100,7 @@ public final class Matisse {
      * Obtain state whether user decide to use selected media in original
      *
      * @param data Intent passed by {@link Activity#onActivityResult(int, int, Intent)} or
-     *             {@link Fragment#onActivityResult(int, int, Intent)}.
+     *             {link Fragment#onActivityResult(int, int, Intent)}.
      * @return Whether use original photo
      */
     public static boolean obtainOriginalState(Intent data) {

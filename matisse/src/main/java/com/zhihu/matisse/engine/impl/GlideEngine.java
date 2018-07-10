@@ -74,6 +74,26 @@ public class GlideEngine implements ImageEngine {
     }
 
     @Override
+    public void loadImage(Context context, int resizeX, int resizeY, ImageView imageView, String uri) {
+        Glide.with(context)
+                .load(uri)
+                .override(resizeX, resizeY)
+                .priority(Priority.HIGH)
+                .fitCenter()
+                .into(imageView);
+    }
+
+    @Override
+    public void loadGifImage(Context context, int resizeX, int resizeY, ImageView imageView, String uri) {
+        Glide.with(context)
+                .load(uri)
+                .asGif()
+                .override(resizeX, resizeY)
+                .priority(Priority.HIGH)
+                .into(imageView);
+    }
+
+    @Override
     public boolean supportAnimatedGif() {
         return true;
     }

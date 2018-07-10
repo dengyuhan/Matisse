@@ -23,6 +23,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.zhihu.matisse.MimeType;
 
@@ -42,13 +43,15 @@ public class Item implements Parcelable {
     public static final long ITEM_ID_CAPTURE = -1;
     public static final String ITEM_DISPLAY_NAME_CAPTURE = "Capture";
     public final long id;
+    public final String filepath;
     public final String mimeType;
     public final Uri uri;
     public final long size;
     public final long duration; // only for video, in ms
 
-    private Item(long id, String mimeType, long size, long duration) {
+    private Item(long id, String filepath, String mimeType, long size, long duration) {
         this.id = id;
+        this.filepath = filepath;
         this.mimeType = mimeType;
         Uri contentUri;
         if (isImage()) {
@@ -66,6 +69,7 @@ public class Item implements Parcelable {
 
     private Item(Parcel source) {
         id = source.readLong();
+        filepath = source.readString();
         mimeType = source.readString();
         uri = source.readParcelable(Uri.class.getClassLoader());
         size = source.readLong();
@@ -74,6 +78,7 @@ public class Item implements Parcelable {
 
     public static Item valueOf(Cursor cursor) {
         return new Item(cursor.getLong(cursor.getColumnIndex(MediaStore.Files.FileColumns._ID)),
+                cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA)),
                 cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.MIME_TYPE)),
                 cursor.getLong(cursor.getColumnIndex(MediaStore.MediaColumns.SIZE)),
                 cursor.getLong(cursor.getColumnIndex("duration")));
@@ -87,6 +92,7 @@ public class Item implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
+        dest.writeString(filepath);
         dest.writeString(mimeType);
         dest.writeParcelable(uri, 0);
         dest.writeLong(size);
@@ -136,10 +142,11 @@ public class Item implements Parcelable {
 
         Item other = (Item) obj;
         return id == other.id
+                && (!TextUtils.isEmpty(filepath) && filepath.equals(other.filepath))
                 && (mimeType != null && mimeType.equals(other.mimeType)
-                    || (mimeType == null && other.mimeType == null))
+                || (mimeType == null && other.mimeType == null))
                 && (uri != null && uri.equals(other.uri)
-                    || (uri == null && other.uri == null))
+                || (uri == null && other.uri == null))
                 && size == other.size
                 && duration == other.duration;
     }

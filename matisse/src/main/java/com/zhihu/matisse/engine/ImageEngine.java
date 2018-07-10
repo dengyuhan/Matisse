@@ -72,6 +72,10 @@ public interface ImageEngine {
      */
     void loadGifImage(Context context, int resizeX, int resizeY, ImageView imageView, Uri uri);
 
+    void loadImage(Context context, int resizeX, int resizeY, ImageView imageView, String uri);
+
+    void loadGifImage(Context context, int resizeX, int resizeY, ImageView imageView, String uri);
+
     /**
      * Whether this implementation supports animated gif.
      * Just knowledge of it, convenient for users.
